@@ -2,28 +2,38 @@ import { Label } from "@radix-ui/react-label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
+import { Button } from "../ui/button";
 
-function CommonForm(formControls){
+function CommonForm({formControls, formData, setFormData, onSubmit, buttonText}){
 
   function renderInputsByComponentType(getControlItem){
     let element = null;
+    const value = formData[getControlItem.name] || ''
     switch(getControlItem.componentType){
       case 'input':
         element =(
           <Input
             name={getControlItem.name}
-            placeholder = {getControlItem.placeholder}
+            placeholder = {getControlItem.placeHolder}
             id={getControlItem.name}
             type={getControlItem.type}
+            value={value}
+            onChange={event=> setFormData({
+              ...formData,
+              [getControlItem.name] : event.target.value
+            })}
           />
         );
       break;
 
       case 'select':
         element =(
-          <Select>
+          <Select onValueChange={(value)=> setFormData({
+            ...formData,
+            [getControlItem.name] : value
+          })} value={value}>
             <SelectTrigger className="w-full">
-              <SelectValue placeholder={getControlItem.placeholder}/>
+              <SelectValue placeholder={getControlItem.placeHolder}/>
             </SelectTrigger>
             <SelectContent>
               {
@@ -38,11 +48,16 @@ function CommonForm(formControls){
 
       case 'textarea':
         element =(
-          <Textarea>
+          <Textarea
             name= {getControlItem.name}
-            placeholder={getControlItem.placeholder}
+            placeholder={getControlItem.placeHolder}
             id={getControlItem.id}
-          </Textarea>
+            value={value}
+            onChange={event=> setFormData({
+              ...formData,
+              [getControlItem.name] : event.target.value
+            })}
+          />
         );
       break;
   
@@ -50,9 +65,14 @@ function CommonForm(formControls){
         element =(
           <Input 
             name={getControlItem.name}
-            placeholder = {getControlItem.placeholder}
+            placeholder = {getControlItem.placeHolder}
             id={getControlItem.name}
             type={getControlItem.type}
+            value={value}
+            onChange={event=> setFormData({
+              ...formData,
+              [getControlItem.name] : event.target.value
+            })}
           />
         );
         break;
@@ -61,21 +81,21 @@ function CommonForm(formControls){
     return element;
   }
 
-  return(
-    <form action="">
+  return (
+    <form onSubmit={onSubmit} action="">
       <div className="flex flex-col gap-3">
-        {
-          formControls.map(controlItem=> <div className="grid w-full gap-1.5" key={controlItem.name}>
-            <Label className='mb-1'>{controlItem.label}</Label>
-            {
-              renderInputsByComponentType(controlItem)
-            }
-          </div>)
-
-        }
+        {formControls.map((controlItem) => (
+          <div className="grid w-full gap-1.5" key={controlItem.name}>
+            <Label className="mb-1">{controlItem.label}</Label>
+            {renderInputsByComponentType(controlItem)}
+          </div>
+        ))}
       </div>
+      <Button type='submit' className="mt-2 w-full">
+        {buttonText || 'Submit'}
+      </Button>
     </form>
-  )
+  );
 }
 
 export default CommonForm;
