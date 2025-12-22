@@ -20,4 +20,21 @@ export const regitserFormControls = [
     componentType : 'input',
     type: 'password',
   },
+];
+
+export const loginFormControls = [
+  {
+    name: 'email',
+    label: 'Email',
+    placeHolder: 'Enter your eamil',
+    componentType : 'input',
+    type: 'text',
+  },
+  {
+    name: 'password',
+    label: 'Password',
+    placeHolder: 'Enter your password',
+    componentType : 'input',
+    type: 'password',
+  },
 ]
