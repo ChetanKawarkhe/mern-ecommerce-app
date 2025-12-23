@@ -1,6 +1,9 @@
 # React + Vite
 
-1:33:41
+02:00:00  - need to check app.use('/api/auth', authRouter); flow
+
+
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:
