@@ -4,7 +4,6 @@ import { registerUser } from "@/store/auth-slice";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { Toaster } from "@/components/ui/sonner"
 import { toast } from "sonner";
 
 const initialState = {
@@ -22,16 +21,14 @@ function AuthRegister() {
   function onSubmit(event){
     event.preventDefault()
     dispatch(registerUser(formData)).then((data) => {
-      if (data?.payload?.success)
-        toast(data?.payload?.message, {
-          description: '',
-          action: {
-            label: "Undo",
-            onClick: () => console.log("Undo"),
-          },
-        });
+      if (data?.payload?.success) {
+        toast.success(data?.payload?.message);
       navigate("/auth/login");
       console.log(data);
+      } else {
+        toast.error(data?.payload?.message); 
+        console.log(data)
+      }
     });
   }
 

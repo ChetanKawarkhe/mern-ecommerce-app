@@ -15,6 +15,7 @@ import ShoppingListing from "./pages/shopping-view/listing"
 import ShoppingHome from "./pages/shopping-view/home"
 import CheckAuth from "./components/common/check-auth"
 import UnauthPage from "./indesx"
+import { Toaster } from "./components/ui/sonner"
 
 function App() {
 
@@ -24,6 +25,7 @@ function App() {
   return (
     <div className="flex flex-col overflow-hidden bg-white">
 
+      {/* <Toaster /> */}
       <Routes>
         <Route path="/auth" element={
           <CheckAuth isAuthenticated = {isAuthenticated} user = {user}>

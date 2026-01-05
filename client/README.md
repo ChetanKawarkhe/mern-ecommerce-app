@@ -1,6 +1,7 @@
 # React + Vite
 
-02:00:00  - need to check app.use('/api/auth', authRouter); flow
+02:30:40
+- need to check app.use('/api/auth', authRouter); flow
 
 
 
